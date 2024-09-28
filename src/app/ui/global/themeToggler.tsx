@@ -1,10 +1,20 @@
 'use client';
 
 import { Theme } from "@/app/lib/definitions/themeTypes";
-import { useState } from "react";
+import { useState, useLayoutEffect } from "react";
 
 export default function ThemeToggler() {
-  const [theme, setTheme] = useState<Theme>(localStorage.getItem("theme") as Theme || "winter");
+  const [theme, setTheme] = useState<Theme>('winter');
+
+  // Only run this effect on the client-side
+  useLayoutEffect(() => {
+    // Check for the theme in localStorage
+    const savedTheme = localStorage.getItem('theme') as Theme;
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    }
+  }, []);
 
   // Switch between winter and dark themes
   const toggleTheme = () => {
