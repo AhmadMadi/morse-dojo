@@ -8,7 +8,7 @@ export default function HomePage() {
         Master Morse code with interactive lessons and practice sessions. 
         Get started now and track your progress as you become a Morse code expert.
       </p>
-      <Link href="/practice">
+      <Link href="/dashboard">
         <button className="btn btn-primary mt-6">
           Get Started
         </button>
