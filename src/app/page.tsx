@@ -2,12 +2,18 @@
 
 import Link from 'next/link';
 import Logo from './ui/global/Logo';
-import { useMemo } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function HomePage() {
-  const theme = useMemo(() => {
-    return localStorage.getItem('theme') || 'winter';
-  }, [localStorage.getItem('theme')]);
+
+  const [theme, setTheme] = useState('winter');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedTheme = localStorage.getItem('theme') || 'winter';
+      setTheme(storedTheme);
+    }
+  }, []);
 
   return (
     <main className="flex flex-col items-center justify-center h-screen text-center p-4">
