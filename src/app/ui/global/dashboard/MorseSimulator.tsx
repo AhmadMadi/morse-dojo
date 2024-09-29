@@ -3,12 +3,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { morseCodeMap } from '@/app/config/data/morseCode';
 
-// Define the Morse Code type, for mapping characters to their Morse equivalent
-type MorseCodeMap = { [key: string]: string };
-
-// Ensure morseCodeMap is correctly typed
-const morseCode: MorseCodeMap = morseCodeMap;
-
 export default function Encode() {
   const [currentChar, setCurrentChar] = useState<string>(''); // Current random character
   const [userInput, setUserInput] = useState<string>(''); // User's Morse input (dots and dashes)
@@ -25,14 +19,9 @@ export default function Encode() {
     getRandomCharacter();
   }, []);
 
-  // Function to get the selected characters from localStorage (or use default)
-  const getSelectedCharacters = (): string[] => {
-    return JSON.parse(localStorage.getItem('selectedChars') || '[]') || Object.keys(morseCode);
-  };
-
   // Function to get a random character
   const getRandomCharacter = () => {
-    const chars = getSelectedCharacters();
+    const chars = Object.keys(morseCodeMap);
     const randomChar = chars[Math.floor(Math.random() * chars.length)];
     setCurrentChar(randomChar);
     setUserInput(''); // Reset user input
@@ -87,7 +76,7 @@ export default function Encode() {
       }
 
       // Determine if it's a dot or dash based on press duration
-      const unit = 50; // Base unit for Morse code (50ms)
+      const unit = 75; // Base unit for Morse code (75ms)
       const symbol = duration > unit * 2 ? '-' : '.'; // Determine dot or dash
       setUserInput((prev) => prev + symbol); // Append the symbol to user input
     }
@@ -95,9 +84,8 @@ export default function Encode() {
 
   // Handle the user's submission
   const handleSubmit = () => {
-    if (userInput === morseCode[currentChar]) {
+    if (morseCodeMap[userInput] === currentChar) {
       setMessage('✅ Correct!');
-      updateProgress('encodeProgress');
       getRandomCharacter(); // Move to the next random character
     } else {
       setMessage('❌ Incorrect. Try again!');
@@ -108,12 +96,6 @@ export default function Encode() {
   const handleReset = () => {
     setUserInput('');
     setMessage('');
-  };
-
-  // Update the progress in localStorage
-  const updateProgress = (key: string) => {
-    const progress = parseInt(localStorage.getItem(key) || '0', 10) + 1;
-    localStorage.setItem(key, progress.toString());
   };
 
   return (
