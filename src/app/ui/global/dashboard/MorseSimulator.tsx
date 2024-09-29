@@ -37,7 +37,7 @@ export default function Encode() {
 
       // Initialize the AudioContext if not already done
       if (!audioCtxRef.current) {
-        audioCtxRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+        audioCtxRef.current = new (window.AudioContext)();
       }
 
       const audioCtx = audioCtxRef.current;
