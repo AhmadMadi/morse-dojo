@@ -1,13 +1,11 @@
 // src/app/dashboard/layout.tsx
 import { ReactNode } from 'react';
+import MorseSimulator from '../ui/global/dashboard/MorseSimulator';
 
-export default function DashboardLayout({ children }: { children: ReactNode }) {
+export default function Dashboard() {
   return (
-    <div className="flex h-screen">
-      {/* Main Content */}
-      <main className="flex-1 p-6">
-        Hi
-      </main>
+    <div className="flex h-screen place-content-center mt-10">
+      <MorseSimulator />
     </div>
   );
 }
