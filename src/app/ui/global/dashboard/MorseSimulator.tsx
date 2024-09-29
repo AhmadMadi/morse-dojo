@@ -23,8 +23,6 @@ export default function Encode() {
   const getRandomCharacter = () => {
     const chars = Object.values(morseCodeMap);
     const randomChar = chars[Math.floor(Math.random() * chars.length)];
-    console.log({chars});
-    console.log({randomChar});
     setCurrentChar(randomChar);
     setUserInput(''); // Reset user input
     setMessage(''); // Clear message
